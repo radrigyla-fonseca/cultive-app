@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    /* =========================================
+        1. ESTADOS
+    ========================================= */
+    --color-excellent: #439946;
+    --color-great: #80cc68;
+    --color-great-details: #437b32;
+    --color-good: #54a2da;
+    --color-fair: #d8cf53;
+    --color-poor: #f44336;
+    --color-bad: #9b190f;
+
+    /* RGB */
+    --color-excellent-rgb: 67, 153, 70;
+    --color-great-rgb: 128, 204, 104;
+    --color-good-rgb: 84, 162, 218;
+    --color-fair-rgb: 216, 207, 83;
+    --color-poor-rgb: 244, 67, 54;
+    --color-bad-rgb: 155, 25, 15;
+
+    /* =========================================
+        2. CORES
+    ========================================= */
+    --primary: #469E14;
+    --secondary: #347D0B;
+    --tertiary: #7CCA4F;
+    --details: #32551E;
+    --off-white: #ebebeb;
+    --water-color: #54a2da;
+    --water-color-secondary: #254760;
+    
+    /* RGB */
+    --tertiary-rgb: 124, 202, 79;
+    
+    /* =========================================
+        2. CONDIÇÕES
+    ========================================= */
+    --ideal: #80cc68;
+    --no-ideal: #9b190f;
+    
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.color-excellent {
+    background-color: var(--color-excellent);
+}
+.color-great {
+    background-color: var(--color-great);
+}
+.color-good {
+    background-color: var(--color-good);
+}
+.color-fair {
+    background-color: var(--color-fair);
+}
+.color-poor {
+    background-color: var(--color-poor);
+}
+.color-bad {
+    background-color: var(--color-bad);
+}
+
+p {
+    margin: 0;
+}
+
+/* ===========================================
+  SECTIONS
+=========================================== */
+#container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-bottom: 100px;
+}
+#container > :nth-child(1 of .section-content) {
+  margin-top: 20px;
+}
+.section-content {
+  margin-top: 35px;
+}
+.section-text {
+  display: flex;
+  align-items: center;
+  margin: 0 0 15px 0;
+}
+.section-text ion-icon {
+  padding-right: 8px;
+  font-size: 32px;
+  width: 22px;
+  height: 22px;
+}
+.section-text h2 {
+  font-size: 18px;
+  margin: 0;
+}
