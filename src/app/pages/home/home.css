@@ -1,0 +1,46 @@
+/* ===========================================
+  MOOD TRACKER
+=========================================== */
+.mood-tracker-content {
+  position: relative;
+  text-align: center;
+  z-index: 0;
+}
+.mood-color {
+  position: absolute;
+  width: 100%;
+  height: 42%;
+  /* transform: translate(-8%, -8%); */
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--color-great-rgb), 0.40) 0%,
+    transparent 100%
+  );
+  z-index: -1;
+}
+.mood-tracker-text {
+  margin-top: -20px;
+}
+.mood-tracker-text p, .mood-tracker-text h1 {
+  margin: 0;
+}
+.mood-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--color-great);
+}
+.mood-variable {
+  padding-top: 4px;
+}
+.mood-variable span {
+  font-size: 12px;
+}
+/* ===========================================
+  SECTIONS
+=========================================== */
+#container > :nth-child(1 of .section-content) {
+  margin-top: 50px !important;
+}
+#reservoir {
+  color: var(--water-color);
+}

@@ -1,0 +1,55 @@
+<app-header [pageTitle]="'Início'"></app-header>
+
+<ion-content fullscreen="true">
+  <div class="mood-color"></div>
+  <div id="container" class="ion-padding">
+    <!-- Mood Tracker -->
+    <div class="mood-tracker-content">
+    <!-- <div class="mood-color"></div> -->
+      <app-mood-tracker [progress]="currentProgress"></app-mood-tracker>
+      <div class="mood-tracker-text">
+        <h1 class="mood-title">ÓTIMO</h1>
+        <p class="mood-variable">
+          CO<span>2</span>
+        </p>
+      </div>
+    </div>
+    <!-- Reservatório -->
+    <div class="section-content">
+      <div class="section-text">
+        <ion-icon id="reservoir" name="water"></ion-icon>
+        <h2 class="section-title">Reservatório</h2>
+      </div>
+      <!-- <app-water-tracker [waterLevel]="waterProgress"></app-water-tracker> -->
+      <app-water-tracker></app-water-tracker>
+    </div>
+    <!-- Condições atuais -->
+    <div class="section-content">
+      <div class="section-text">
+        <ion-icon id="conditions" name="pulse"></ion-icon>
+        <h2 class="section-title">Condições</h2>
+      </div>
+      <ion-grid>
+        <ion-row class="section-cards ion-align-items-stretch">
+          <!-- Temperatura -->  
+          @for (item of data; track item.title) {
+            <ion-col size="12" size-md="6" size-lg="3">
+              <app-variable-card
+                [title]="item.title"
+                [icon]="item.icon"
+                [min]="item.min"
+                [max]="item.max"
+                [value]="item.value"
+                [unit]="item.unit"
+                [condition]="item.condition"
+                [conditionClass]="item.conditionClass"
+              ></app-variable-card>
+            </ion-col>
+          }
+        </ion-row>
+      </ion-grid>
+    </div>
+    <!-- Barra de navegação -->
+    <app-bottom-nav [activePage]="'home'"></app-bottom-nav>
+  </div>
+</ion-content>
