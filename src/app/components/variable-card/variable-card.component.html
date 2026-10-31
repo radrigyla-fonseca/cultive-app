@@ -1,0 +1,33 @@
+<!-- <ion-card class="ideal">
+    <ion-icon name="thermometer"></ion-icon>
+    <div>
+    <ion-card-header>
+        <ion-card-title>TEMPERATURA</ion-card-title>
+        <ion-card-subtitle>18 ºC - 25 ºC</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+        <p class="variable-value">
+        20
+        <span class="unit">ºC</span>
+        </p>
+        <p class="condition">IDEAL</p>
+    </ion-card-content>
+    </div>
+</ion-card> -->
+
+<ion-card [class]="conditionClass">
+    <ion-icon [name]="icon"></ion-icon>
+    <div class="ion-align-content-between">
+        <ion-card-header>
+            <ion-card-title> {{ title }} </ion-card-title>
+            <ion-card-subtitle>{{ min }} {{ unit }} - {{ max }} {{ unit }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <p class="variable-value">
+            {{ value }}
+            <span class="unit">{{ unit }}</span>
+            </p>
+            <p class="condition">{{ condition }}</p>
+        </ion-card-content>
+    </div>
+</ion-card>
