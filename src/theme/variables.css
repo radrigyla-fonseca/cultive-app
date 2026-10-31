@@ -1,0 +1,39 @@
+/**
+ * Ionic Dark Theme
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+:root {
+    --ion-color-green: #469E14;
+    --ion-color-green-rgb: 70, 158, 20;
+    --ion-color-dark-green: #32551E;
+    --ion-color-dark-green-rgb: 50, 85, 30;
+
+    --ion-color-red: #9b190f;
+    --ion-color-red-rgb: 155, 25, 15;
+    --ion-color-dark-red: #68120c;
+    --ion-color-dark-red-rgb: 104, 18, 12;
+}
+
+.ion-color-green {
+    --ion-color-base: var(--ion-color-green);
+    --ion-color-base-rgb: var(--ion-color-green-rgb);
+    --ion-color-contrast: var(--ion-text-color);
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: var(--ion-color-dark-green);
+    --ion-color-tint: #58b524;
+}
+.ion-color-red {
+    --ion-color-base: var(--ion-color-red);
+    --ion-color-base-rgb: var(--ion-color-red-rgb);
+    --ion-color-contrast: var(--ion-text-color);
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: var(--ion-color-dark-red);
+    --ion-color-tint: #b5453d;
+}
