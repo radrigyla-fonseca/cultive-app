@@ -1,0 +1,87 @@
+.mood-tracker-div {
+    display: flex;
+    justify-content: center;
+}
+.svg-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .progress-ring {
+        position: absolute;
+        transform: rotate(-90deg); // Rotaciona o círculo para começar do topo
+
+        circle {
+            fill: transparent;
+            stroke-width: 8px;
+        }
+
+        &-circle {
+            stroke: #9ca3af;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    }
+    .mood-face-circle {
+        // width: 100px;
+        // height: 100px;
+        width: 90px;
+        height: 90px;
+        background-color: #9ca3af;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .face {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+
+            .eyes {
+                display: flex;
+                gap: 18px;
+
+                .eye {
+                    background-color: #1f2937;
+                }
+            }
+        }
+    }
+
+    // ÓTIMO
+    &.great {
+        .progress-ring {
+            &-circle {
+                stroke: var(--color-great);
+            }
+        }
+        .face {
+            margin-bottom: 10px;
+
+            .eye {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background-color: var(--color-great-details) !important;
+            }
+            .mouth {
+                width: 45px;
+                height: 22px;
+                background-color: var(--color-great-details) !important;
+                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: 30px;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+        }
+        .mood-face-circle {
+            background-color: var(--color-great);
+        }
+    }
+}
