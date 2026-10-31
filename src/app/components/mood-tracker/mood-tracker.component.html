@@ -1,0 +1,25 @@
+<div class="mood-tracker-div">
+    <div class="svg-wrapper great">
+        <!-- Barra de Progresso Circular-->
+        <svg class="progress-ring" width="220" height="220">
+            <circle
+                class="progress-ring-circle"
+                [attr.r]="radius"
+                cx="110"
+                cy="110"
+                [style.stroke-dasharray]="circumference"
+                [style.stroke-dashoffset]="strokeDashoffset"
+            />
+        </svg>
+
+        <div class="mood-face-circle">
+            <div class="face">
+                <div class="eyes">
+                <span class="eye"></span>
+                <span class="eye"></span>
+                </div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+    </div>
+</div>
