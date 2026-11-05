@@ -1,0 +1,12 @@
+@if (toastService.toast(); as toast) {
+    <ion-toast
+        [isOpen]="true"
+        position="bottom"
+        positionAnchor="bottom-nav"
+        [icon]="toast.icon"
+        [message]="toast.message"
+        [color]="toast.color"
+        [duration]="toast.duration"
+        (didDismiss)="toastService.dismiss()"
+    ></ion-toast>
+}
