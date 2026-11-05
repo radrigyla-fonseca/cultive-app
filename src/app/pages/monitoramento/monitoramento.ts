@@ -15,10 +15,10 @@ import {
 ================================ */
 import { addIcons } from 'ionicons';
 import { 
-  water, 
+  water,
   pulse,
   thermometer,
-  leaf,
+  waterOutline,
   sunny,
   cloud,
   home
@@ -50,17 +50,17 @@ import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.compo
     VariableCardComponent,
     BottomNavComponent
 ],
-  templateUrl: './home.html',
-  styleUrls: ['./home.css', '../../../styles.css']
+  templateUrl: './monitoramento.html',
+  styleUrls: ['./monitoramento.css', '../../../styles.css']
 })
 
-export class HomePage {
+export class MonitoramentoPage {
   constructor() {
     addIcons({
       'water': water,
       'pulse': pulse,
       'thermometer': thermometer,
-      'leaf': leaf,
+      'water-outline': waterOutline,
       'sunny': sunny,
       'cloud': cloud
     });
@@ -83,7 +83,7 @@ export class HomePage {
     },
     {
       title: 'UMIDADE DO SOLO', 
-      icon: 'leaf',
+      icon: 'water-outline',
       min: 65, 
       max: 81, 
       value: 97, 
