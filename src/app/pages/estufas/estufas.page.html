@@ -1,4 +1,4 @@
-<app-header pageTitle="Estufas"></app-header>
+<app-header id="header" pageTitle="Estufas"></app-header>
 
 <ion-content [fullscreen]="true">
   <div id="container" class="ion-padding">
@@ -9,85 +9,66 @@
         <h2 class="section-title">Minhas estufas</h2>
       </div>
       
-      <ion-list>
-        <!-- Estufa 01 -->
-        <ion-item-sliding>
-          <ion-item>
-            <ion-label>
-              Estufa do quarto
-              <ion-chip class="active">Ativa</ion-chip>
-            </ion-label>
-            <div class="description">
-              <!-- <p class="status">
-                Status:
-                <ion-badge color="green">ativa</ion-badge>
-                |
-              </p> -->
-              <p class="condition">
-                <!-- Condição:
-                <ion-badge color="green">ótima</ion-badge> -->
-              </p>
-              <div class="variables">
-                <ion-badge class="ideal">Temp</ion-badge>
-                <ion-badge class="ideal">Um Solo</ion-badge>
-                <ion-badge class="no-ideal">Lum</ion-badge>
-                <ion-badge class="ideal">Um Ar</ion-badge>
-              </div>
-            </div>
-          </ion-item>
-
-          <ion-item-options side="end">
-            <ion-item-option>
-              <ion-icon slot="icon-only" name="pencil"></ion-icon>
-            </ion-item-option>
-            <ion-item-option color="red">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
+      <!-- Se houver pelo menos uma estufa adicionada -->
+      @if(estufas.length > 0) {
         
-        <!-- Estufa 02 -->
-        <ion-item-sliding>
-          <ion-item>
-            <ion-label>
-              Estufa da varanda
-              <ion-chip>Desativada</ion-chip>
-            </ion-label>
-            <div class="description">
-              <!-- <p class="status">
-                Status:
-                <ion-badge color="green">ativa</ion-badge>
-                |
-              </p> -->
-              <p class="condition">
-                <!-- Condição:
-                <ion-badge color="green">ótima</ion-badge> -->
-              </p>
-              <div class="variables">
-                <ion-badge>Temp</ion-badge>
-                <ion-badge>Um Solo</ion-badge>
-                <ion-badge>Lum</ion-badge>
-                <ion-badge>Um Ar</ion-badge>
-              </div>
-            </div>
-          </ion-item>
+        <ion-list>
 
-          <ion-item-options side="end">
-            <ion-item-option>
-              <ion-icon slot="icon-only" name="pencil"></ion-icon>
-            </ion-item-option>
-            <ion-item-option color="red">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-      <!-- Adicionar estufa -->
-      <ion-button id="open-modal" class="add-btn" shape="round" size="large">
+          @for (estufa of estufas; track estufa.id) {
+            <!-- Estufa 01 -->
+            <ion-item-sliding >
+              <ion-item
+                button
+                detail="false"
+                (click)="goToMonitoramento(estufa.id)"
+              >
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-label>
+                  {{ estufa.name }}
+                  <ion-chip [class]=estufa.class >{{ estufa.status }}</ion-chip>
+                </ion-label>
+                  <ion-grid class="variables">
+                    <ion-row>
+                      <!-- Variáveis -->
+                      @for (variable of estufa.variables; track variable.id) {
+                        <ion-col>
+                          <p [class]=variable.status><span></span>{{ variable.name }}</p>
+                        </ion-col>
+                      }
+                    </ion-row>
+                  </ion-grid>
+                <!-- </div> -->
+              </ion-item>
+  
+              <ion-item-options side="end">
+                <ion-item-option id="delete-alert" (click)="editEstufa(estufa)">
+                  <ion-icon slot="icon-only" name="pencil"></ion-icon>
+                </ion-item-option>
+                <ion-item-option (click)="presentDeleteAlert(estufa.id)" color="red">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          }
+        </ion-list>
+      } 
+      <!-- Se não houver estufa cadastrada -->
+      @if(estufas.length === 0) {
+        <div class="no-estufas">
+          <div class="message">
+            <p><ion-icon name="search"></ion-icon>Nenhuma estufa cadastrada...</p>
+            <p>Conecte uma nova estufa à sua rede Wi-Fi clicando no botão<span><ion-icon name="add"></ion-icon></span></p>
+          </div>
+        </div>
+      }
+
+      <!-- Botão adicionar estufa -->
+      <ion-button id="addEstufaModal" class="add-btn" shape="round" size="large">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
 
-      <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <!-- Modal editar estufa -->
+      <ion-modal #editEstufaModal>
         <ng-template>
           <ion-header>
             <ion-toolbar>
@@ -97,68 +78,174 @@
             </ion-title>
             </ion-toolbar>
           </ion-header>
+
           <ion-content class="ion-padding">
-            <!-- <ion-item>
-              <ion-input
-                name="name"
-                label="Enter your name"
-                labelPlacement="stacked"
-                type="text"
-                placeholder="Your name"
-                [(ngModel)]="name"
-              ></ion-input>
-            </ion-item> -->
-            
             <ion-title>Propriedades</ion-title>
             <!-- Nome da estufa -->
-            <ion-list>
-              <ion-item>
-                <ion-input 
-                labelPlacement="floating" 
-                label="Nome da estufa" 
-                placeholder="Digite o nome"
-                [counter]="true"
-                maxlength="30"
-                >
-                  <ion-icon slot="start" name="bookmark" aria-hidden="true"></ion-icon>
-                </ion-input>
-              </ion-item>
-            </ion-list>
-
-            <!-- Status -->
-            <ion-list>
-              <ion-item>
-                <ion-select labelPlacement="floating" label="Status" value="apple">
-                  <ion-icon slot="start" name="pulse" aria-hidden="true"></ion-icon>
-                  <ion-select-option value="active">Ativa</ion-select-option>
-                  <ion-select-option value="noActive">Desativada</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
+            @if (estufa) {
+              <ion-list>
+                <ion-item>
+                  <ion-input 
+                    labelPlacement="floating" 
+                    label="Nome da estufa" 
+                    placeholder="Digite o nome"
+                    [counter]="true"
+                    [(ngModel)]="estufa.name"
+                    maxlength="30"
+                  >
+                    <ion-icon slot="start" name="bookmark" aria-hidden="true"></ion-icon>
+                  </ion-input>
+                </ion-item>
+                <!-- Status -->
+                <ion-item>
+                  <ion-select 
+                    labelPlacement="floating" 
+                    label="Status" 
+                    [(ngModel)]="estufa.class"
+                    (ionChange)="estufa.status = estufa.class === 'active' ? 'Ativa' : 'Desativada'"
+                    [disabled]="true"
+                  >
+                    <ion-icon slot="start" name="pulse" aria-hidden="true"></ion-icon>
+                    <ion-select-option value="active">Ativa</ion-select-option>
+                    <ion-select-option value="no-active">Desativada</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
             
-            <ion-title>Métricas</ion-title>
-            <!-- Faixa de temperatura -->
-            <ion-list>
-              <ion-item>
-                <ion-select labelPlacement="floating" label="Faixa de temperatura" value="apple">
-                  <ion-icon slot="start" name="thermometer" aria-hidden="true"></ion-icon>
-                  <ion-select-option value="active">Ativa</ion-select-option>
-                  <ion-select-option value="noActive">Desativada</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
+              <!-- Métricas -->
+              <ion-list>
+                @for (variable of estufa?.variables; track variable.id) {
+                  <ion-title>
+                    <ion-icon [name]=variable.icon></ion-icon>
+                    {{ variable.name }}
+                  </ion-title>
+
+                  <ion-item>
+                    <ion-select 
+                      labelPlacement="floating"
+                      label="Mínima"
+                      [(ngModel)]="variable.min"
+                    >
+                      <ion-icon slot="start" name="trending-down" aria-hidden="true"></ion-icon>
+                      @if (variable.name === 'Temperatura') {
+                        @for (temperature of temperatureRange; track temperature) {
+                          <ion-select-option [value]=temperature>{{ temperature }} °C</ion-select-option>
+                        }
+                      } @if (variable.name === 'Umidade Solo' || variable.name === 'Luminosidade' || variable.name === 'Umidade Ar') {
+                        @for (percentage of percentageRange; track percentage) {
+                          <ion-select-option [value]=percentage>{{ percentage }}%</ion-select-option>
+                        }
+                      }
+                    </ion-select>
+                  </ion-item>
+                  <ion-item>
+                    <ion-select 
+                      labelPlacement="floating"
+                      label="Máxima"
+                      [(ngModel)]="variable.max"
+                    >
+                      <ion-icon slot="start" name="trending-up" aria-hidden="true"></ion-icon>
+                      @if (variable.name === 'Temperatura') {
+                        @for (temperature of temperatureRange; track temperature) {
+                          <ion-select-option [value]=temperature>{{ temperature }} °C</ion-select-option>
+                        }
+                      } @if (variable.name === 'Umidade Solo' || variable.name === 'Luminosidade' || variable.name === 'Umidade Ar') {
+                        @for (percentage of percentageRange; track percentage) {
+                          <ion-select-option [value]=percentage>{{ percentage }}%</ion-select-option>
+                        }
+                      }
+                    </ion-select>
+                  </ion-item>
+                }
+              </ion-list>
+            }
 
           </ion-content>
           <div class="ion-padding">
             <ion-buttons slot="start">
-              <ion-button (click)="cancel()">Voltar</ion-button>
-              <ion-button (click)="confirm()" [strong]="true">Salvar</ion-button>
+              <ion-button shape="round" class="cancel-btn" (click)="closeModal(editModal)">Voltar</ion-button>
+              <ion-button shape="round" class="save-btn" (click)="confirmEdit()">Salvar</ion-button>
             </ion-buttons>
           </div>
         </ng-template>
       </ion-modal>
+
+      <!-- Modal adicionar estufa -->
+      <ion-modal id="addEstufa" #addEstufaModal trigger="addEstufaModal">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>
+                <ion-icon name="add-circle-outline"></ion-icon>
+                Adicionar estufa
+              </ion-title>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="ion-padding">
+            <ion-title>Parâmetros da sua rede</ion-title>
+            <!-- SSID da rede -->
+              <ion-list>
+                <ion-item>
+                  <ion-input 
+                    labelPlacement="floating" 
+                    label="SSID" 
+                    placeholder="Digite o nome da rede"
+                    [(ngModel)]="ssid"
+                  >
+                    <ion-icon slot="start" name="wifi" aria-hidden="true"></ion-icon>
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input 
+                    labelPlacement="floating" 
+                    label="Senha" 
+                    placeholder="Digite a senha"
+                    type="password"
+                    [(ngModel)]="password"
+                  >
+                    <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
+                    <ion-icon slot="start" name="key" aria-hidden="true"></ion-icon>
+                  </ion-input>
+                </ion-item>
+              </ion-list>
+          </ion-content>
+
+          <div class="ion-padding">
+            <ion-buttons slot="start">
+              <ion-button 
+                shape="round" 
+                class="cancel-btn" 
+                (click)="closeModal(addModal)"
+              >Voltar</ion-button>
+              <ion-button 
+                shape="round" 
+                class="save-btn" 
+                (click)="addEstufa()"
+                [disabled]="isConnecting" 
+              >
+                @if(isConnecting) {
+                  <ion-spinner name="crescent"></ion-spinner>
+                    Conectando...
+                } @else if(!isConnecting) {
+                  Adicionar
+                }
+              </ion-button>
+            </ion-buttons>
+          </div>
+        </ng-template>
+      </ion-modal>
+
+      <ion-alert
+        [isOpen]="showDeleteAlert"
+        header="Apagar estufa"
+        message="Você está prestes a apagar a estufa selecionada. A ação não poderá ser desfeita, deseja continuar?"
+        [buttons]="delEstufaAlertBtns"
+        (didDismiss)="showDeleteAlert = false"
+      ></ion-alert>
+
     </div>
     <!-- Bottom-nav -->
-    <app-bottom-nav [activePage]="'estufas'"></app-bottom-nav>
+    <app-bottom-nav id="bottom-nav" [activePage]="'estufas'"></app-bottom-nav>
   </div>  
 </ion-content>
