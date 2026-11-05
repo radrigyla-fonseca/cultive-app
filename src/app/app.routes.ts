@@ -1,19 +1,38 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './pages/home/home';
+import { MonitoramentoPage } from './pages/monitoramento/monitoramento';
 import { EstufasPage } from './pages/estufas/estufas.page';
+import { RelatoriosPage } from './pages/relatorios/relatorios.page';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'estufas',
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    component: HomePage,
+    path: 'estufas',
+    children: [
+      {
+        path: '',
+        component: EstufasPage,
+      },
+      {
+        path: ':id/monitoramento',
+        component: MonitoramentoPage,
+      },
+    ],
   },
   {
-    path: 'estufas',
-    component: EstufasPage,
+    path: 'relatorios',
+    children: [
+      {
+        path: '',
+        component: RelatoriosPage,
+      },
+      // {
+      //   path: ':id/visao-geral',
+      //   // component: RelatorioPage,
+      // }
+    ]
   },
 ];
