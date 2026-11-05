@@ -37,7 +37,7 @@ export class BottomNavComponent implements OnInit {
   
   ngOnInit() {}
   
-  @Input() activePage: string = 'home';
+  @Input() activePage: string = '';
   navigateTo(route: string) {
     this.router.navigateByUrl(`/${route}`);
   }
