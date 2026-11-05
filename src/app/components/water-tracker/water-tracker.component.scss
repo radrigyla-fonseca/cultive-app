@@ -4,6 +4,10 @@
 
     ion-col {
         padding-right: 0;
+
+        &.reservoir-percentage, .md {
+            padding-left: 0;
+        }
     }
 
     .water-level-div {
@@ -13,7 +17,6 @@
         justify-content: center;
         align-items: center;
         background-color: var(--water-color);
-        // background-color: var(--ion-card-background);
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
 
