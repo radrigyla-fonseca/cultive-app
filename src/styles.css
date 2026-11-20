@@ -7,8 +7,10 @@
     --color-great-details: #437b32;
     --color-good: #54a2da;
     --color-fair: #d8cf53;
+    --color-fair-details: #827c2d;
     --color-poor: #f44336;
     --color-bad: #9b190f;
+    --color-bad-details: #620f09;
 
     /* RGB */
     --color-excellent-rgb: 67, 153, 70;
@@ -25,19 +27,30 @@
     --secondary: #347D0B;
     --tertiary: #7CCA4F;
     --details: #32551E;
+    --neutral: #8b8b8b;
+    --neutral-dark: #6b6b6b;
     --off-white: #ebebeb;
     --water-color: #54a2da;
     --water-color-secondary: #254760;
     
     /* RGB */
     --tertiary-rgb: 124, 202, 79;
+    --neutral-rgb: 131, 131, 131;
     
     /* =========================================
         2. CONDIÇÕES
     ========================================= */
     --ideal: #80cc68;
+    --ideal-rgb: 128, 204, 104;
+    --close: #ccca68;
+    --close-rgb: 204, 202, 104;
     --no-ideal: #9b190f;
+    --no-ideal-rgb: 155, 25, 15;
     
+    --cold: rgb(65, 99, 210);
+    --cold-rgb: 65, 99, 210;
+    --hot: #9b190f;
+    --hot-rgb: 155, 25, 15;
 }
 
 *,
@@ -91,11 +104,18 @@ p {
 }
 .section-text ion-icon {
   padding-right: 8px;
-  font-size: 32px;
-  width: 22px;
-  height: 22px;
 }
+.section-text:has(h2) ion-icon {
+  font-size: 22px;
+}
+/* .section-text:has(h3) ion-icon {
+  font-size: 18px;
+} */
 .section-text h2 {
   font-size: 18px;
   margin: 0;
 }
+/* .section-text h3 {
+  font-size: 16px;
+  margin: 0;
+} */
