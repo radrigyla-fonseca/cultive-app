@@ -1,9 +1,13 @@
-// .relatorio-title
+.period-section-wrapper {
+    & ~ .period-section-wrapper {
+        margin-top: 40px !important;
+    }
+}
+
 .period-div {
     display: flex;
 }
 .section-text {
-    // color: var(--ion-text-color-step-450);
     margin: 0 !important;
 }
 .period-div {
@@ -21,15 +25,14 @@
         border-radius: 10px;
         background-color: var(--ion-text-color-step-650);
     }
-    
-    .relatorio-div {
-        &:first-child{
-            .relatorio-title {
-                &::before {
-                    background-color: var(--secondary);
-                }
-            }                
+    &:first-of-type {
+        .relatorio-div:first-child {
+            .relatorio-title::before {
+                background-color: var(--secondary);            
+            }
         }
+    }
+    .relatorio-div {
         .relatorio-title {
             position: relative;
             font-size: 18px;

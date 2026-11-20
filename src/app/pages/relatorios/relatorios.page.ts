@@ -9,6 +9,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
+  IonRippleEffect
 } from '@ionic/angular';
 import {
   ChartComponent,
@@ -34,6 +35,8 @@ import {
 import { HeaderComponent } from '../../components/header/header.component';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-relatorios',
   templateUrl: './relatorios.page.html',
@@ -48,13 +51,14 @@ import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.compo
     IonCardContent,
     CommonModule, 
     FormsModule,
+    IonRippleEffect,
     HeaderComponent,
     BottomNavComponent,
     ChartComponent
   ],
 })
 export class RelatoriosPage implements OnInit {
-  constructor() {
+  constructor(private router: Router) {
     addIcons({
       'calendar': calendar,
     })
@@ -84,11 +88,13 @@ export class RelatoriosPage implements OnInit {
     const ideal = temp >= 18 && temp <= 25;
     const close = ((temp > 13 && temp < 18) || (temp > 25 && temp <= 30)) && !ideal;
     const noIdeal = temp <= 13 || temp > 30;
+    const cold = temp < 18;
 
     return {
       x: this.days[i],
       y: temp,
-      fillColor: ideal ? 'var(--ideal)' : (close ? 'var(--close)' : 'var(--no-ideal)')
+      // fillColor: ideal ? 'var(--ideal)' : (close ? 'var(--close)' : 'var(--no-ideal)')
+      fillColor: ideal ? 'var(--ideal)' : (cold ? 'var(--cold)' : 'var(--hot)')
     }
   });
 
@@ -141,9 +147,20 @@ export class RelatoriosPage implements OnInit {
         chart: {
           toolbar: {
             show: false
-          }
+          },
+        },
+        tooltip: {
+          enabled: false
         }
       }
     }
   ]
+
+  goToVisaoGeral(idEstufa: number) {
+    this.router.navigate([
+      '/relatorios',
+      idEstufa,
+      'visao-geral'
+    ]);
+  }
 }
