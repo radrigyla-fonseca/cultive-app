@@ -1,4 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { 
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges
+} from '@angular/core';
 import { IonProgressBar,
   IonGrid,
   IonRow,
@@ -15,8 +20,19 @@ export class WaterTrackerComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+  
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['waterLevel']) {
+  //     console.log('WaterTracker recebeu novo valor via @Input():', changes['waterLevel'].currentValue);
+  //   }
+  // }
 
-  // Nível de água (%)
-  waterLevel: number = 75/100;
+  // Nível de água
+  @Input() waterLevel!: number;
+  
+  get waterLevelPercentage(): number {
+    if (!this.waterLevel) return 0;
+    return this.waterLevel / 100;
+  }
 
 }
