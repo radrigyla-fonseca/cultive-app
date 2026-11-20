@@ -14,3 +14,4 @@ export const appConfig: ApplicationConfig = {
 };
 
 export const ESP32_URL = 'http://192.168.4.1';
+export const ADDRESS_API = 'http://localhost:3000/api';
