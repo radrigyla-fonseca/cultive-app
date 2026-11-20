@@ -1,8 +1,15 @@
-ion-header .logo-img {
-  width: 35px;
-  height: 35px;
-  margin-left: 6px;
-  cursor: pointer;
+ion-header {
+  .logo-img {
+    width: 35px;
+    height: 35px;
+    margin-left: 6px;
+    cursor: pointer;
+  }
+  ion-icon {
+    font-size: 25px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
 }
   ion-header .user-avatar {
   width: 35px;

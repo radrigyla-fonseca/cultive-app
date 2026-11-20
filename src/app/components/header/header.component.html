@@ -3,7 +3,12 @@
     <ion-grid>
       <ion-row>
         <ion-col class="ion-display-flex ion-align-items-center">
-          <img src="images/cultive-icon.png" alt="logo do Cultive" class="logo-img" (click)="goToEstufas()">
+          @if(logo) {
+            <img src="images/cultive-icon.png" alt="logo do Cultive" class="logo-img" (click)="goToEstufas()">
+          }
+          @if(goBack) {
+            <ion-icon name="arrow-back" (click)="goBackPage()"></ion-icon>
+          }
           <ion-title>{{ pageTitle }}</ion-title>
         </ion-col>
         <!-- <ion-col size="auto">
