@@ -14,7 +14,7 @@ import {
   closeCircle,
 } from 'ionicons/icons'
 
-import { Toast } from '../../services/toast';
+import { Toast } from '../../services/toast.service';
 
 @Component({
   selector: 'app-toast',
