@@ -12,13 +12,20 @@ export class MoodTrackerComponent implements OnInit {
   ngOnInit() {}
 
   // Nível de CO2 (%)
-  @Input() progress: number = 75; 
+  @Input() progress: number = 0; 
+  @Input() status: 'great' | 'alert' | 'stressed' | '' = ''; 
 
   readonly radius: number = 60;
   readonly circumference: number = 2 * Math.PI * this.radius;
 
   get strokeDashoffset(): number {
-    const progress = Math.max(0, Math.min(100, this.progress));
-    return this.circumference - (progress / 100) * this.circumference;
+
+    const progress = Math.max(
+      0,
+      Math.min(100, this.progress)
+    );
+
+    return this.circumference -
+      (progress / 100) * this.circumference;
   }
 }
