@@ -7,7 +7,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "backend/src/services/influx.spec.tsackend/services/influx.spec.ts", "backend/src/services/descobrir-estufas.spec.ts", "backend/src/services/descobrir-estufas.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

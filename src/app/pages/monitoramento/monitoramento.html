@@ -1,55 +1,87 @@
-<app-header [pageTitle]="'Monitoramento'"></app-header>
+<app-header 
+  [logo] = false
+  [goBack]=true
+  [pageTitle]="'Monitoramento'"
+></app-header>
 
 <ion-content fullscreen="true">
-  <div class="mood-color"></div>
+  <div 
+    class="mood-color"
+    [class.great]="moodStatus === 'great'"
+    [class.alert]="moodStatus === 'alert'"
+    [class.stressed]="moodStatus === 'stressed'"
+  ></div>
   <div id="container" class="ion-padding">
     <!-- Mood Tracker -->
     <div class="mood-tracker-content">
-    <!-- <div class="mood-color"></div> -->
-      <app-mood-tracker [progress]="currentProgress"></app-mood-tracker>
+      <!-- <div class="mood-color"></div> -->
+      <app-mood-tracker 
+        [progress]="moodLevel"
+        [status]="moodStatus"
+      ></app-mood-tracker>
+      <!-- <app-mood-tracker [progress]=25></app-mood-tracker> -->
       <div class="mood-tracker-text">
-        <h1 class="mood-title">ÓTIMO</h1>
-        <p class="mood-variable">
-          CO<span>2</span>
+        <h1 
+          class="mood-title"
+          [class]="moodStatus"
+        >{{ moodTitle }}</h1>
+        <p class="mood-description">
+          {{ moodDescription }}
         </p>
+        <ion-chip
+          [outline]="true"
+          [class.great]="moodStatus === 'great'"
+          [class.alert]="moodStatus === 'alert'"
+          [class.stressed]="moodStatus === 'stressed'"
+        >
+          <ion-icon [name]="moodIcon"></ion-icon>
+          <ion-label>
+            {{ moodChipText }}
+          </ion-label>
+        </ion-chip>
       </div>
     </div>
-    <!-- Reservatório -->
-    <div class="section-content">
-      <div class="section-text">
-        <ion-icon id="reservoir" name="water"></ion-icon>
-        <h2 class="section-title">Reservatório</h2>
+    
+    @if(dataArr.length) {
+      <!-- Reservatório -->
+      <div class="section-content">
+        <div class="section-text">
+          <ion-icon id="reservoir" name="water"></ion-icon>
+          <h2 class="section-title">Reservatório</h2>
+        </div>
+        <!-- <app-water-tracker [waterLevel]="waterProgress"></app-water-tracker> -->
+        <app-water-tracker
+          [waterLevel] = "waterLevel"
+        ></app-water-tracker>
       </div>
-      <!-- <app-water-tracker [waterLevel]="waterProgress"></app-water-tracker> -->
-      <app-water-tracker></app-water-tracker>
-    </div>
-    <!-- Condições atuais -->
-    <div class="section-content">
-      <div class="section-text">
-        <ion-icon id="conditions" name="pulse"></ion-icon>
-        <h2 class="section-title">Condições</h2>
+      <!-- Condições atuais -->
+      <div class="section-content">
+        <div class="section-text">
+          <ion-icon id="conditions" name="pulse"></ion-icon>
+          <h2 class="section-title">Condições</h2>
+        </div>
+        <ion-grid>
+          <ion-row class="section-cards ion-align-items-stretch">
+            <!-- Temperatura -->  
+            @for (item of dataArr; track item.title) {
+              <ion-col size="12" size-md="6" size-lg="3">
+                <app-variable-card
+                  [title]="item.title"
+                  [icon]="item.icon"
+                  [min]="item.min"
+                  [max]="item.max"
+                  [value]="item.value"
+                  [unit]="item.unit"
+                  [condition]="item.condition"
+                  [conditionClass]="item.conditionClass"
+                ></app-variable-card>
+              </ion-col>
+            }
+          </ion-row>
+        </ion-grid>
       </div>
-      <ion-grid>
-        <ion-row class="section-cards ion-align-items-stretch">
-          <!-- Temperatura -->  
-          @for (item of data; track item.title) {
-            <ion-col size="12" size-md="6" size-lg="3">
-              <app-variable-card
-                [title]="item.title"
-                [icon]="item.icon"
-                [min]="item.min"
-                [max]="item.max"
-                [value]="item.value"
-                [unit]="item.unit"
-                [condition]="item.condition"
-                [conditionClass]="item.conditionClass"
-              ></app-variable-card>
-            </ion-col>
-          }
-        </ion-row>
-      </ion-grid>
-    </div>
+    }
     <!-- Barra de navegação -->
-    <app-bottom-nav [activePage]="'monitoramento'"></app-bottom-nav>
+    <!-- <app-bottom-nav [activePage]="'monitoramento'"></app-bottom-nav> -->
   </div>
 </ion-content>

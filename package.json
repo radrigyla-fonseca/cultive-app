@@ -17,9 +17,11 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@influxdata/influxdb-client": "^1.35.0",
     "@ionic/angular": "^9.0.8",
     "apexcharts": "^8.7.0",
     "ng-apexcharts": "^3.2.0",
+    "pg": "^8.23.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
