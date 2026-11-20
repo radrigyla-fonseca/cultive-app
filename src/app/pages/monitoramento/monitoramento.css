@@ -13,13 +13,49 @@
   /* transform: translate(-8%, -8%); */
   background: linear-gradient(
     to bottom,
-    rgb(var(--color-great-rgb), 0.40) 0%,
+    rgb(var(--neutral-rgb), 0.40) 0%,
     transparent 100%
   );
   z-index: -1;
 }
+.mood-color.great {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--color-great-rgb), 0.40) 0%,
+    transparent 100%
+  );
+}
+.mood-color.alert {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--color-fair-rgb), 0.40) 0%,
+    transparent 100%
+  );
+}
+.mood-color.stressed {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--color-poor-rgb), 0.25) 0%,
+    transparent 100%
+  );
+}
 .mood-tracker-text {
   margin-top: -20px;
+}
+.mood-tracker-text ion-chip {
+  pointer-events: none;
+}
+.mood-tracker-text ion-chip.great, .mood-tracker-text ion-chip.great ion-icon {
+  color: var(--color-great);
+  border-color: var(--color-great);
+}
+.mood-tracker-text ion-chip.alert, .mood-tracker-text ion-chip.alert ion-icon {
+  color: var(--color-fair);
+  border-color: var(--color-fair);
+}
+.mood-tracker-text ion-chip.stressed, .mood-tracker-text ion-chip.stressed ion-icon {
+  color: var(--color-poor);
+  border-color: var(--color-poor);
 }
 .mood-tracker-text p, .mood-tracker-text h1 {
   margin: 0;
@@ -27,13 +63,20 @@
 .mood-title {
   font-size: 25px;
   font-weight: bold;
+  color: var(--neutral);
+}
+.mood-title.great {
   color: var(--color-great);
 }
-.mood-variable {
-  padding-top: 4px;
+.mood-title.alert {
+  color: var(--color-fair);
 }
-.mood-variable span {
-  font-size: 12px;
+.mood-title.stressed {
+  color: var(--color-poor);
+}
+.mood-description {
+  color: var(--ion-text-color-step-450);
+  padding: 4px 10px 15px;
 }
 /* ===========================================
   SECTIONS
@@ -43,4 +86,17 @@
 }
 #reservoir {
   color: var(--water-color);
+}
+
+/* ===========================================
+  MEDIAS
+=========================================== */
+@media (max-width: 430px) {
+  
+  .mood-title {
+    font-size: 20px;
+  }
+  .mood-description {
+    font-size: 14px;
+  }
 }
