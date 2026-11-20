@@ -9,8 +9,8 @@
         <h2 class="section-title">Minhas estufas</h2>
       </div>
       
-      <!-- Se houver pelo menos uma estufa adicionada -->
-      @if(estufas.length > 0) {
+      <!-- ==== TESTE ================================================================== -->
+      @if(estufas?.length > 0) {
         
         <ion-list>
 
@@ -24,48 +24,51 @@
               >
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-label>
-                  {{ estufa.name }}
+                  Estufa #0{{ estufa.id }}
                   <ion-chip [class]=estufa.class >{{ estufa.status }}</ion-chip>
                 </ion-label>
-                  <ion-grid class="variables">
-                    <ion-row>
-                      <!-- Variáveis -->
-                      @for (variable of estufa.variables; track variable.id) {
-                        <ion-col>
-                          <p [class]=variable.status><span></span>{{ variable.name }}</p>
-                        </ion-col>
-                      }
-                    </ion-row>
-                  </ion-grid>
-                <!-- </div> -->
+                <ion-grid class="variables">
+                  <ion-row>
+                    <!-- Variáveis -->
+                    @for (variable of estufa.variables; track variable.id) {
+                      <ion-col>
+                        <p [class]=variable.status><span></span>{{ variable.name }}</p>
+                        <!-- <p><span></span>{{ variable.key }}</p> -->
+                      </ion-col>
+                    }
+                  </ion-row>
+                </ion-grid>
               </ion-item>
-  
-              <ion-item-options side="end">
+              <!-- <ion-item-options side="end">
                 <ion-item-option id="delete-alert" (click)="editEstufa(estufa)">
                   <ion-icon slot="icon-only" name="pencil"></ion-icon>
                 </ion-item-option>
                 <ion-item-option (click)="presentDeleteAlert(estufa.id)" color="red">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
-              </ion-item-options>
+              </ion-item-options> -->
             </ion-item-sliding>
           }
         </ion-list>
       } 
+      <!-- ============================================================================= -->
       <!-- Se não houver estufa cadastrada -->
-      @if(estufas.length === 0) {
+      @if(estufas?.length === 0) {
         <div class="no-estufas">
-          <div class="message">
-            <p><ion-icon name="search"></ion-icon>Nenhuma estufa cadastrada...</p>
-            <p>Conecte uma nova estufa à sua rede Wi-Fi clicando no botão<span><ion-icon name="add"></ion-icon></span></p>
+          <div class="empty-icon">
+            <ion-icon name="leaf-outline"></ion-icon>
           </div>
+          <h3>Nenhuma estufa online</h3>
+          <p>
+            Suas estufas aparecerão aqui quando estiverem conectadas.
+          </p>
         </div>
       }
 
       <!-- Botão adicionar estufa -->
-      <ion-button id="addEstufaModal" class="add-btn" shape="round" size="large">
+      <!-- <ion-button id="addEstufaModal" class="add-btn" shape="round" size="large">
         <ion-icon slot="icon-only" name="add"></ion-icon>
-      </ion-button>
+      </ion-button> -->
 
       <!-- Modal editar estufa -->
       <ion-modal #editEstufaModal>
@@ -171,7 +174,8 @@
       </ion-modal>
 
       <!-- Modal adicionar estufa -->
-      <ion-modal id="addEstufa" #addEstufaModal trigger="addEstufaModal">
+      <!-- <ion-modal id="addEstufa" #addEstufaModal trigger="addEstufaModal"> -->
+      <ion-modal id="addEstufa" #addEstufaModal trigger="">
         <ng-template>
           <ion-header>
             <ion-toolbar>
@@ -246,6 +250,6 @@
 
     </div>
     <!-- Bottom-nav -->
-    <app-bottom-nav id="bottom-nav" [activePage]="'estufas'"></app-bottom-nav>
+    <!-- <app-bottom-nav id="bottom-nav" [activePage]="'estufas'"></app-bottom-nav> -->
   </div>  
 </ion-content>

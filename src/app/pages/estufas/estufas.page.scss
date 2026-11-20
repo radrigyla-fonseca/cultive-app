@@ -6,9 +6,9 @@ ion-list ion-item, ion-list ion-item::part(native), ion-list ion-item ion-label,
 //     position: relative;
 //     height: 100%;
 // }
-// .section-content {
-//     height: 100%;
-// }
+.section-content {
+    height: 100%;
+}
 ion-list {
     background: none;
 
@@ -60,11 +60,14 @@ ion-list {
             align-items: center;
             justify-content: space-between;
             margin-bottom: 0;
+            // text-overflow: ellipsis;
 
             ion-chip {
+                flex-shrink: 0;
                 font-size: 12px;
                 padding: 0px 10px;
                 pointer-events: none;
+                margin-left: 15px;
             }
             ion-chip.active {
                 background-color: rgba(var(--ion-color-green-rgb), 0.5);
@@ -128,48 +131,43 @@ ion-list {
 }
 
 .no-estufas {
-    height: 80%;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--ion-text-color-step-450);
-    gap: 10px;
-    
-    .message {
+    padding: 30px 20px;
+    text-align: center;
+
+    .empty-icon {
+        width: 68px;
+        height: 68px;
+        display: flex;
         align-items: center;
-        text-align: center;
-        flex-direction: column;
-        font-size: 14px;
-        padding: 0 20px;
-        
-        
-        p {
-            margin-bottom: 10px;
-            align-items: center;
-            flex-direction: column;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(var(--ion-color-primary-rgb), 0.09);
 
-            &:first-of-type {
-                flex-direction: row;
-                gap: 8px;
-                ion-icon {
-                    font-size: 18px;
-                }
-            }
-
-            span {
-                align-items: center;
-                justify-content: center;
-                height: 30px;
-                width: 30px;
-                border-radius: 50px;
-                font-size: 18px;
-                background-color: var(--ion-background-color-step-150);
-                margin-top: 5px;
-                
-                ion-icon {
-                    font-size: 14px;
-                }
-            }
+        ion-icon {
+            font-size: 32px;
+            color: var(--primary);
         }
+    }
+
+    h3 {
+        margin: 18px 0 8px;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ion-text-color);
+    }
+
+    p {
+        max-width: 260px;
+        margin: 0;
+
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--ion-color-medium);
     }
 }
 .add-btn {

@@ -1,9 +1,9 @@
+import { Toast } from './../../services/toast.service';
 import { addIcons } from 'ionicons';
 import { 
   Component, 
   OnInit,
   ViewChild,
-  inject,
   NgZone,
   ChangeDetectorRef 
 } from '@angular/core';
@@ -59,7 +59,8 @@ import {
   trendingUp,
   addCircleOutline,
   wifi,
-  key
+  key,
+  leafOutline
 } from 'ionicons/icons';
 
 /* ================================
@@ -72,25 +73,10 @@ import { Router } from '@angular/router';
 /* ================================
   SERVICES
 ================================ */
-import { Toast } from '../../services/toast';
-import { EstufaService } from '../../services/estufa';
+// import { Toast } from '../../services/toast.service';
+import { EstufaService } from '../../services/estufa.service';
 
-interface Estufa {
-  id: number;
-  name: string;
-  status: string;
-  class: string;
-  variables: Variable[];
-}
-
-interface Variable {
-  id: number;
-  name: string;
-  icon: string;
-  status: string;
-  min: number;
-  max: number;
-}
+import { EstufaModel, VariableModel } from '../../models/estufa.model';
 
 interface UpdateEstufa {
   name?: string,
@@ -139,7 +125,13 @@ interface UpdateEstufa {
 })
 
 export class EstufasPage implements OnInit {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private toast: Toast,
+    private estufaService: EstufaService,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {
     addIcons({
       'star': star,
       'pencil': pencil,
@@ -159,13 +151,16 @@ export class EstufasPage implements OnInit {
       'add-circle-outline': addCircleOutline,
       'wifi': wifi,
       'key': key,
+      'leaf-outline': leafOutline
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getEstufas();
+  }
 
-  estufa: Estufa | null = null;
-  estufaOriginal: Estufa | null = null;
+  estufa: EstufaModel | null = null;
+  estufaOriginal: EstufaModel | null = null;
   showDeleteAlert: boolean = false;
   idEstufaSelected: number | null = null;
   temperatureRange: number[] = Array.from({ length: 26 }, (_, i) => i + 10);
@@ -173,95 +168,182 @@ export class EstufasPage implements OnInit {
   ssid: string = '';
   password: string = '';
   isConnecting: boolean = false;
-  private toast = inject(Toast);
-  private estufaService = inject(EstufaService);
-  private zone = inject(NgZone);
-  private cdr = inject(ChangeDetectorRef);
+  estufas: EstufaModel[] = [];
+
+  // private toast = inject(Toast);
+  // private estufaService = inject(EstufaService);
+  // private zone = inject(NgZone);
+  // private cdr = inject(ChangeDetectorRef);
 
   // Array de estufas adicionadas
-  estufas: Estufa[] = [
-    {
-      id: 1,
-      name: 'Estufa do Quarto',
-      status: 'Ativa',
-      class: 'active',
-      variables: [
-        {
-          id: 1,
-          name: 'Temperatura',
-          icon: 'thermometer',
-          status: 'ideal',
-          min: 18,
-          max: 25,
-        },
-        {
-          id: 2,
-          name: 'Umidade Solo',
-          icon: 'water-outline',
-          status: 'ideal',
-          min: 65,
-          max: 81,
-        },
-        {
-          id: 3,
-          name: 'Luminosidade',
-          icon: 'sunny',
-          status: 'no-ideal',
-          min: 59,
-          max: 84,
-        },
-        {
-          id: 4,
-          name: 'Umidade Ar',
-          icon: 'cloud',
-          status: 'ideal',
-          min: 23,
-          max: 39,
-        }
-      ],
-    },
-    {
-      id: 2,
-      name: 'Estufa do Banheiro',
-      status: 'Desativada',
-      class: 'no-active',
-      variables: [
-        {
-          id: 1,
-          name: 'Temperatura',
-          icon: 'thermometer',
-          status: 'ideal',
-          min: 18,
-          max: 25,
-        },
-        {
-          id: 2,
-          name: 'Umidade Solo',
-          icon: 'water-outline',
-          status: 'ideal',
-          min: 65,
-          max: 81,
-        },
-        {
-          id: 3,
-          name: 'Luminosidade',
-          icon: 'sunny',
-          status: 'no-ideal',
-          min: 59,
-          max: 84,
-        },
-        {
-          id: 4,
-          name: 'Umidade Ar',
-          icon: 'cloud',
-          status: 'ideal',
-          min: 23,
-          max: 39,
-        }
-      ],
-    },
-  ];
+  // estufas1: EstufaModel[] = [
+  //   {
+  //     id: '1',
+  //     name: 'Estufa do Quarto',
+  //     status: 'Ativa',
+  //     class: 'active',
+  //     variables: [
+  //       {
+  //         id: 1,
+  //         name: 'Temperatura',
+  //         icon: 'thermometer',
+  //         status: 'ideal',
+  //         min: 18,
+  //         max: 25,
+  //       },
+  //       {
+  //         id: 2,
+  //         name: 'Umidade Solo',
+  //         icon: 'water-outline',
+  //         status: 'ideal',
+  //         min: 65,
+  //         max: 81,
+  //       },
+  //       {
+  //         id: 3,
+  //         name: 'Luminosidade',
+  //         icon: 'sunny',
+  //         status: 'no-ideal',
+  //         min: 59,
+  //         max: 84,
+  //       },
+  //       {
+  //         id: 4,
+  //         name: 'Umidade Ar',
+  //         icon: 'cloud',
+  //         status: 'ideal',
+  //         min: 23,
+  //         max: 39,
+  //       }
+  //     ],
+  //   },
+  //   // {
+  //   //   id: 2,
+  //   //   name: 'Estufa do Banheiro',
+  //   //   status: 'Desativada',
+  //   //   class: 'no-active',
+  //   //   variables: [
+  //   //     {
+  //   //       id: 1,
+  //   //       name: 'Temperatura',
+  //   //       icon: 'thermometer',
+  //   //       status: 'ideal',
+  //   //       min: 18,
+  //   //       max: 25,
+  //   //     },
+  //   //     {
+  //   //       id: 2,
+  //   //       name: 'Umidade Solo',
+  //   //       icon: 'water-outline',
+  //   //       status: 'ideal',
+  //   //       min: 65,
+  //   //       max: 81,
+  //   //     },
+  //   //     {
+  //   //       id: 3,
+  //   //       name: 'Luminosidade',
+  //   //       icon: 'sunny',
+  //   //       status: 'no-ideal',
+  //   //       min: 59,
+  //   //       max: 84,
+  //   //     },
+  //   //     {
+  //   //       id: 4,
+  //   //       name: 'Umidade Ar',
+  //   //       icon: 'cloud',
+  //   //       status: 'ideal',
+  //   //       min: 23,
+  //   //       max: 39,
+  //   //     }
+  //   //   ],
+  //   // },
+  // ];
+  private variableNames: Record<string, string> = {
+    lum: 'Luminosidade',
+    temperatura: 'Temperatura',
+    um_ar: 'Umidade ar',
+    um_solo: 'Umidade solo'
+  };
+  variableConfig: Record<string, { min: number; max: number }> = {
+    temperatura: { min: 18, max: 25 },
+    um_solo: { min: 65, max: 81 },
+    lum: { min: 59, max: 84 },
+    um_ar: { min: 23, max: 39 }
+  };
+  getVariableStatus(
+    value: number | null,
+    min: number,
+    max: number
+  ): VariableModel['status'] {
+    if (value === null) return '';
+    return value >= min && value <= max
+      ? 'ideal'
+      : 'no-ideal';
+  }
+  getEstufas() {
+    this.estufaService.getEstufasOnline()
+      .subscribe({
+        next: (res) => {
 
+          if (!res.success || !res.data) {
+            this.toast.danger(
+              res.message ?? 'Não foi possível buscar as estufas'
+            )
+            return
+          }
+          const estufasMapeadas: EstufaModel[] = res.data.map(estufa => {
+
+            const variables = Object.entries(estufa.variables).map(
+              ([name, value]) => {
+
+                const config = this.variableConfig[name];
+                if (!config) {
+                  console.warn(`Configuração ausente para: ${name}`);
+                  return null
+                }
+                
+                return {
+                  id: name,
+                  name: this.variableNames[name] ?? name,
+                  value,
+                  min: config.min,
+                  max: config.max,
+                  status: this.getVariableStatus(
+                    value,
+                    config.min,
+                    config.max
+                  )
+                }
+              }
+            ).filter(variable => variable !== null)
+
+            return {
+              ...estufa,
+              status: 'Ativa',
+              class: 'active',
+              lastSeen: estufa.lastSeen,
+              variables
+            }
+          })
+
+          this.zone.run(() => {
+            this.estufas = estufasMapeadas;
+
+            this.cdr.detectChanges();
+
+            if(estufasMapeadas.length) {
+              this.toast.success(estufasMapeadas.length + ' estufa(s) online')
+            }
+          })
+        },
+        error: (err) => {
+          this.toast.danger('Ocorreu um erro ao tentar buscar estufas online')
+          console.error('Erro ao buscar estufas:', err);
+        }
+      }
+    ); 
+  }
+  
   @ViewChild('editEstufaModal') editModal!: IonModal;
   @ViewChild('addEstufaModal') addModal!: IonModal;
 
@@ -269,6 +351,7 @@ export class EstufasPage implements OnInit {
     modal.dismiss(null, 'cancel');
   }
 
+  // Ao confirmar edição da estufa
   confirmEdit() {
 
     if (!this.estufa || !this.estufaOriginal) return;
@@ -307,6 +390,7 @@ export class EstufasPage implements OnInit {
 
   }
 
+  // Ações dos botões de cancelar e apagar estufa
   public delEstufaAlertBtns = [
     {
       text: 'Cancelar',
@@ -327,15 +411,11 @@ export class EstufasPage implements OnInit {
   ];
 
   // Ir para monitoramento da estufa
-  goToMonitoramento(idEstufa: number) {
-    this.router.navigate([
-      '/estufas',
-      idEstufa,
-      'monitoramento'
-    ])
+  goToMonitoramento(idEstufa: string | number) {
+    this.router.navigate(['/estufas',idEstufa,'monitoramento'])
   }
 
-  editEstufa(estufa: Estufa) {
+  editEstufa(estufa: EstufaModel) {
     // GET ESTUFA
     this.estufaOriginal = structuredClone(estufa);
 
@@ -367,7 +447,8 @@ export class EstufasPage implements OnInit {
       if (!originalVariable) continue;
 
       const change: { 
-        id: number; 
+        // id: number; 
+        id: string; 
         min?: number; 
         max?: number 
       } = {
@@ -385,13 +466,14 @@ export class EstufasPage implements OnInit {
 
       if (change.min !== undefined || change.max !== undefined) {
         changes.variables ??= [];
-        changes.variables.push(change);
+        // changes.variables.push(change); //Dando erro por causa do array estufas antigo
       }
     }
 
     return changes;
   }
 
+  // Apagar estufa
   deleteEstufa(idEstufa: number) {
     if(!idEstufa) return;
 
@@ -458,7 +540,7 @@ export class EstufasPage implements OnInit {
   estufaExists(idEstufa: number): number {
     const id = this.estufas.findIndex(
       // Checa se o id de cada estufa é igual ao id passado
-      estufa => estufa.id === idEstufa
+      estufa => estufa.id === String(idEstufa)
     );
 
     return id;
