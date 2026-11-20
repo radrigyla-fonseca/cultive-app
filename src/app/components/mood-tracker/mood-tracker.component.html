@@ -1,7 +1,18 @@
 <div class="mood-tracker-div">
-    <div class="svg-wrapper great">
+    <div 
+        class="svg-wrapper"
+        [class.great]="status ==='great'"
+        [class.alert]="status ==='alert'"
+        [class.stressed]="status ==='stressed'"
+        >
         <!-- Barra de Progresso Circular-->
         <svg class="progress-ring" width="220" height="220">
+            <circle
+                class="progress-ring-background"
+                [attr.r]="radius"
+                cx="110"
+                cy="110"
+            />
             <circle
                 class="progress-ring-circle"
                 [attr.r]="radius"
@@ -15,8 +26,8 @@
         <div class="mood-face-circle">
             <div class="face">
                 <div class="eyes">
-                <span class="eye"></span>
-                <span class="eye"></span>
+                <span class="eye left"></span>
+                <span class="eye right"></span>
                 </div>
                 <div class="mouth"></div>
             </div>
