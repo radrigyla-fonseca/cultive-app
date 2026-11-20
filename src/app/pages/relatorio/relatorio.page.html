@@ -1,0 +1,39 @@
+<app-header 
+  [pageTitle]="'Relatório'"
+  [logo]="false"
+  [goBack]="true"
+></app-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container" class="ion-padding">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-icon name="thermometer"></ion-icon>
+        <div>
+          <ion-card-title>
+            Temperatura
+          </ion-card-title>
+          <ion-card-subtitle>Gráfico da temperatura ao longo dos dias</ion-card-subtitle>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="legends">
+          
+        </div>
+        <div class="chart">
+          <apx-chart
+            [series]="series()"
+            [chart]="chart"
+            [xaxis]="xaxis"
+            /* [title]="title" */
+            [dataLabels]="dataLabels"
+            [tooltip]="tooltip"
+            [grid]="grid"
+            [responsive]="responsive"
+          />
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
