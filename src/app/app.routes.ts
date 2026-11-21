@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { MonitoramentoPage } from './pages/monitoramento/monitoramento';
 import { EstufasPage } from './pages/estufas/estufas.page';
 // import { RelatoriosPage } from './pages/relatorios/relatorios.page';
 // import { RelatorioPage } from './pages/relatorio/relatorio.page';
@@ -19,7 +18,8 @@ export const routes: Routes = [
       },
       {
         path: ':id/monitoramento',
-        component: MonitoramentoPage,
+        loadComponent: () => import('./pages/monitoramento/monitoramento')
+        .then(m => m.MonitoramentoPage)
       },
     ],
   },
