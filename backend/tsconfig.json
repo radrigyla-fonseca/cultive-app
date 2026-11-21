@@ -27,7 +27,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "noEmitOnError": true
-  },
+  }, 
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
