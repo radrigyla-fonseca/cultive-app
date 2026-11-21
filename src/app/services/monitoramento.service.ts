@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InfluxRecord, ApiResponse } from '../models/medicoes.model';
+import { ADDRESS_API } from '../app.config';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ import { InfluxRecord, ApiResponse } from '../models/medicoes.model';
 export class MonitoramentoService {
     constructor(private http: HttpClient) {}
 
-    private apiUrl = 'http://localhost:3000/api/monitoramento'; // monitoramentoRoutes
+    private apiUrl = `${ADDRESS_API}monitoramento`; // monitoramentoRoutes
 
     /*
         Recebe idEstufa

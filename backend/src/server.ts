@@ -15,7 +15,7 @@ dotenv.config(); // Carrega as variáveis de ambiente
 
 // CORS
 const allowedOrigins = [
-  'http://localhost:8100',
+  // 'http://localhost:8100',
   'http://localhost:4200',
   process.env.FRONTEND_URL
 ].filter(Boolean) as string[];
