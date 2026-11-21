@@ -1,9 +1,11 @@
 
 import { pool } from '../config/database';
 import {
-    getMeasurementsByPeriod,
-    InfluxEstufaData
+    getMeasurementsByPeriod
 } from '../config/influx';
+import { 
+    InfluxEstufaData
+} from '../models/influx.model';
 
 const TIMEZONE = 'America/Recife';
 const SENSORES = [
