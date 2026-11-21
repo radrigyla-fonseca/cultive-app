@@ -1,29 +1,37 @@
-// {
-//   // Visit https://aka.ms/tsconfig to read more about this file
-//   "compilerOptions": {
-//     // File Layout
-//     "rootDir": "./src",
-//     "outDir": "./dist",
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-//     // Environment Settings
-//     "module": "commonjs",
-//     "target": "es2022",
-//     "types": ["node"],
+    // Environment Settings
+    "module": "commonjs",
+    "target": "es2022",
+    "types": ["node"],
 
-//     // Other Outputs
-//     "sourceMap": true,
-//     "declaration": true,
-//     "declarationMap": true,
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
 
-//     // Stricter Typechecking Options
-//     "noUncheckedIndexedAccess": true,
-//     "exactOptionalPropertyTypes": true,
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
 
-//     // Recommended Options
-//     "strict": true,
-//     "verbatimModuleSyntax": false,
-//     "isolatedModules": true,
-//     "moduleDetection": "force",
-//     "skipLibCheck": true
-//   }
-// }
+    // Recommended Options
+    "strict": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "noEmitOnError": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

@@ -50,3 +50,4 @@ Thumbs.db
 # Backend
 /backend/.env
 /backend/.env.*
+/backend/node_modules/

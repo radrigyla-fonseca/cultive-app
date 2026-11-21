@@ -81,6 +81,31 @@ function getPeriod(data: string) {
 
     const [year, month, day] = data.split('-').map(Number);
 
+    if (
+        year === undefined ||
+        month === undefined ||
+        day === undefined ||
+        !Number.isInteger(year) ||
+        !Number.isInteger(month) ||
+        !Number.isInteger(day) ||
+        month < 1 ||
+        month > 12 ||
+        day < 1 ||
+        day > 31
+    ) {
+        throw new Error('Data inválida para gerar o período.');
+    }
+
+    const validatedDate = new Date(Date.UTC(year, month - 1, day));
+
+    if (
+        validatedDate.getUTCFullYear() !== year ||
+        validatedDate.getUTCMonth() !== month - 1 ||
+        validatedDate.getUTCDate() !== day
+    ) {
+        throw new Error('Data de referência inexistente.');
+    }
+
     const previousDate = new Date(
         Date.UTC(year, month - 1, day - 1)
     );

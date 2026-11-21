@@ -218,7 +218,13 @@ export async function getDataEstufa(idEstufa: string) {
         if(!dataEstufa.length) return null;
         // if(!dataEstufa.length) throw new Error('nulo');
 
-        const timestampInflux = dataEstufa[0]._time;
+        if (dataEstufa.length === 0) return null;
+
+        const firstEstufa = dataEstufa[0];
+
+        if (!firstEstufa) return null;
+
+        const timestampInflux = firstEstufa._time;
         const dateInflux = new Date(timestampInflux); // Converte o timestamp para data
         const formatter = new Intl.DateTimeFormat('pt-BR', {
             timeZone: 'America/Recife',
