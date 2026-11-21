@@ -10,7 +10,7 @@ import { ADDRESS_API } from '../app.config';
 export class MonitoramentoService {
     constructor(private http: HttpClient) {}
 
-    private apiUrl = `${ADDRESS_API}monitoramento`; // monitoramentoRoutes
+    private apiUrl = `${ADDRESS_API}/monitoramento`; // monitoramentoRoutes
 
     /*
         Recebe idEstufa
