@@ -2,68 +2,23 @@ import { InfluxDB } from '@influxdata/influxdb-client';
 import * as dotenv from 'dotenv';
 import { format } from 'node:path';
 
-dotenv.config();
+/* ================================
+  MODELS
+================================ */
+import { 
+    EstufaOnline, 
+    EstufaData,
+    Temperatura,
+    Reservatorio
+} from '../models/estufa.model';
+import { 
+    InfluxEstufasOnline, 
+    InfluxEstufaData, 
+    InfluxTemperatura, 
+    InfluxReservatorio 
+} from '../models/influx.model';
 
-export interface EstufaOnline {
-    id: string;
-    lastSeen: string;
-    variables: {
-        lum: number | null;
-        temperatura: number | null;
-        um_ar: number | null;
-        um_solo: number | null;
-    }
-}
-export interface Variable {
-    id: string;
-    name: string;
-    value: number | null;
-    status: string;
-}
-interface InfluxEstufasOnline {
-    estufa_id: string;
-    _time: string;
-    lum: number;
-    temperatura: number;
-    um_ar: number;
-    um_solo: number;
-}
-export interface EstufaData {
-    timestamp: {
-        time: string;
-        hour: number;
-        minute: number;
-        date: string;
-        day: number;
-        month: number;
-        year: number;
-    };
-    co2: number;
-    lum: number;
-    reservatorio: number;
-    temperatura: number;
-    um_ar: number;
-    um_solo: number;
-} 
-export interface InfluxEstufaData {
-    _time: string;
-    _field: string;
-    _value: number;
-} 
-export interface Temperatura {
-    time: string;
-    value: number;
-} 
-interface InfluxTemperatura {
-    _time: string,
-    _value: number
-}
-export interface Reservatorio {
-    value: number;
-} 
-interface InfluxReservatorio {
-    _value: number
-}
+dotenv.config();
 
 const influxUrl = process.env.INFLUX_URL;
 const influxToken = process.env.INFLUX_TOKEN;
@@ -216,7 +171,6 @@ export async function getDataEstufa(idEstufa: string) {
         const dataEstufa = await queryApi.collectRows<InfluxEstufaData>(fluxQuery);
     
         if(!dataEstufa.length) return null;
-        // if(!dataEstufa.length) throw new Error('nulo');
 
         if (dataEstufa.length === 0) return null;
 
