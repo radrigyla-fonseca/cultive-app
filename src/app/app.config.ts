@@ -14,4 +14,5 @@ export const appConfig: ApplicationConfig = {
 };
 
 export const ESP32_URL = 'http://192.168.4.1';
-export const ADDRESS_API = 'http://localhost:3000/api';
+export const ADDRESS_LOCAL_API = 'http://localhost:3000/api';
+export const ADDRESS_API = 'https://cultive-t718.onrender.com/api';

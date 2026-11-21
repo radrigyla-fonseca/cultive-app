@@ -6,7 +6,7 @@ import {
 
 import { EstufaOnline } from '../models/estufa.model';
 
-import { ESP32_URL, ADDRESS_API } from '../app.config';
+import { ESP32_URL, ADDRESS_LOCAL_API, ADDRESS_API } from '../app.config';
 import { ApiResponse } from '../models/api-response';
 
 interface WifiCredentials {
@@ -21,6 +21,8 @@ export class EstufaService {
     private http = inject(HttpClient);
     private addressESP = ESP32_URL;
     private addressAPI = ADDRESS_API;
+    private addressLocalAPI = ADDRESS_LOCAL_API;
+    
 
     // Post dos dados da rede local para conexão do ESP
     connectWifi(data: WifiCredentials) {
