@@ -40,7 +40,7 @@ export class App {
       ) {
         this.loadingTimeout = setTimeout(() => {
           this.loading.hide();
-        }, 1000);
+        }, 2500);
       }
 
     })

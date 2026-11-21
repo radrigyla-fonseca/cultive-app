@@ -14,12 +14,10 @@
   <div id="container" class="ion-padding">
     <!-- Mood Tracker -->
     <div class="mood-tracker-content">
-      <!-- <div class="mood-color"></div> -->
       <app-mood-tracker 
         [progress]="moodLevel"
         [status]="moodStatus"
       ></app-mood-tracker>
-      <!-- <app-mood-tracker [progress]=25></app-mood-tracker> -->
       <div class="mood-tracker-text">
         <h1 
           class="mood-title"
@@ -49,7 +47,6 @@
           <ion-icon id="reservoir" name="water"></ion-icon>
           <h2 class="section-title">Reservatório</h2>
         </div>
-        <!-- <app-water-tracker [waterLevel]="waterProgress"></app-water-tracker> -->
         <app-water-tracker
           [waterLevel] = "waterLevel"
         ></app-water-tracker>

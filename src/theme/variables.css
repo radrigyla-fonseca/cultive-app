@@ -19,6 +19,10 @@
     --ion-color-red-rgb: 155, 25, 15;
     --ion-color-dark-red: #68120c;
     --ion-color-dark-red-rgb: 104, 18, 12;
+    
+    --ion-item-background: #f3f3f3;
+    --ion-toolbar-background: #f3f3f3;
+    --ion-text-color: #262626;
 }
 
 .ion-color-green {
@@ -36,4 +40,8 @@
     --ion-color-contrast-rgb: 255, 255, 255;
     --ion-color-shade: var(--ion-color-dark-red);
     --ion-color-tint: #b5453d;
+}
+
+.ion-palette-dark {
+    --ion-text-color: #262626;
 }
